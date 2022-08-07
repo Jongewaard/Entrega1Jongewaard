@@ -1,0 +1,67 @@
+<!--
+    nombre_evento = models.CharField(max_length=100, default="evento")
+    f_evento = models.DateTimeField(default=datetime.datetime.now())
+    f_aviso_evento = models.DateTimeField(default=datetime.datetime.now())
+-->
+{% extends 'agenda/base.html'%}
+
+{% block contenido_calendario%}
+
+
+
+<nav class="navbar navbar-light bg-light">
+    <form action="/calendario">
+        <h3> Agregar un evento </h3>
+        <table style="width:75%">
+            <tr>
+            <th>Evento</th>
+            <th>Fecha del evento</th>
+            <th>Fecha de aviso</th>
+            </tr>
+            <td><input type="text" id="nombre_evento" name="nombre_evento" required></td>
+            <td><input type="datetime-local" id="f_evento" name="f_evento"  required></td>
+            <td><input type="datetime-local" id="f_aviso" name="f_aviso"  required></td>
+            <td>
+                <input type="hidden" name = "guardando" value=True >
+                <input type="submit" value="Guardar">
+            </td>
+        </table>
+        <br>
+
+    </form>
+</nav>
+<br>
+<br>
+
+
+<nav class="navbar navbar-light bg-light">
+    <form action="/calendario">
+        <h4> Buscar </h4>
+        <label for="evento_a_buscar">Evento:</label>
+        <input type="text" id="evento_a_buscar" name="evento_a_buscar" required>
+        <input type="hidden" name = "buscando" value=True >
+        <input type="submit" value="Buscar">
+    </form>
+</nav>
+<br>
+
+  <table style="width:75%" class="center">
+  <tr>
+      <th>Evento</th>
+      <th>Fecha del evento</th>
+      <th>Fecha de aviso del evento</th>
+      <th>Acción</th>
+  </tr>
+  {% for item in tabla_sql %}
+      <tr>
+          <form action="/calendario">
+              <td>{{item.nombre_evento}}</td><td>{{item.f_evento}}</td><td>{{item.f_aviso_evento}}</td>
+              <td>
+                  <input type="hidden" name = "id_borrar" value={{item.id}} >
+                  <input type="submit" value="Borrar">
+              </td>
+          </form>
+      </tr>
+  {% endfor %}
+  </table>
+{% endblock%}

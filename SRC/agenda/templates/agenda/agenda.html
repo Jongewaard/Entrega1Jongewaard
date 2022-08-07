@@ -1,0 +1,54 @@
+{% extends 'agenda/base.html'%}
+
+{% block contenido_agenda%}
+
+
+
+<nav class="navbar navbar-light bg-light">
+    <form action="/agenda/">
+        <h3> Agregar una persona </h3>
+        <label for="apellido_nombre">Apellido & Nombre:</label><br>
+        <input type="text" id="apellido_nombre" name="apellido_nombre" required><br><br>
+        <label for="fec_nac">Fecha de nacimiento: </label><br>
+        <input type="date" id="fec_nac" name="fec_nac"  required><br><br>
+        <label for="e_mail">Correo electrónico:</label><br>
+        <input type="email" id="e_mail" name="e_mail" required><br><br>
+        <input type="hidden" name = "guardando" value=True >
+        <input type="submit" value="Guardar">
+    </form>
+</nav>
+<br>
+<br>
+
+
+<nav class="navbar navbar-light bg-light">
+    <form action="/agenda/">
+        <h4> Buscar </h4>
+        <label for="apellido_nombre">Apellido & Nombre:</label>
+        <input type="text" id="apellido_nombre" name="apellido_nombre" required>
+        <input type="hidden" name = "buscando" value=True >
+        <input type="submit" value="Buscar">
+    </form>
+</nav>
+<br>
+
+  <table style="width:75%" class="center">
+  <tr>
+      <th>Nombre & Apellido</th>
+      <th>Fecha de nacimiento</th>
+      <th>Correo electrónico</th>
+      <th>Acción</th>
+  </tr>
+  {% for item in tabla_sql %}
+      <tr>
+          <form action="/agenda">
+              <td>{{item.apynombre}}</td><td>{{item.f_nac}}</td><td>{{item.e_mail}}</td>
+              <td>
+                  <input type="hidden" name = "id_borrar" value={{item.id}} >
+                  <input type="submit" value="Borrar">
+              </td>
+          </form>
+      </tr>
+  {% endfor %}
+  </table>
+{% endblock%}

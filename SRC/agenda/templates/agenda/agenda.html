@@ -5,7 +5,7 @@
 
 
 <nav class="navbar navbar-light bg-light">
-    <form action="/agenda/">
+    <form action="{% url 'agenda' %}">
         <h3> Agregar una persona </h3>
         <label for="apellido_nombre">Apellido & Nombre:</label><br>
         <input type="text" id="apellido_nombre" name="apellido_nombre" required><br><br>
@@ -22,7 +22,7 @@
 
 
 <nav class="navbar navbar-light bg-light">
-    <form action="/agenda/">
+    <form action="{% url 'agenda' %}">
         <h4> Buscar </h4>
         <label for="apellido_nombre">Apellido & Nombre:</label>
         <input type="text" id="apellido_nombre" name="apellido_nombre" required>
@@ -41,7 +41,7 @@
   </tr>
   {% for item in tabla_sql %}
       <tr>
-          <form action="/agenda">
+          <form action="{% url 'agenda' %}">
               <td>{{item.apynombre}}</td><td>{{item.f_nac}}</td><td>{{item.e_mail}}</td>
               <td>
                   <input type="hidden" name = "id_borrar" value={{item.id}} >

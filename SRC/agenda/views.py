@@ -67,8 +67,37 @@ def view_calendario(request):
 
 
 def view_bitacora(request):
+    '''
+    fecha = models.DateField(default=datetime.datetime.now())
+    titulo = models.CharField(max_length=20, default="titulo")
+    momento = models.TimeField(default=datetime.datetime.now())
+    sucesos = models.CharField(max_length=300, default="default")
+    '''
+    consulta_bitacora = bitacora.objects.all()
 
-    return render(request, "agenda/bitacora.html")
+    if "guardando" in request.GET:
+        existe = False
+
+        if not existe:
+            _evento = bitacora(
+                fecha = request.GET.get('fecha'),
+                titulo=request.GET.get('head_titulo'),
+                momento=request.GET.get('hora'),
+                sucesos=request.GET.get('head_sucesos'),
+                )
+            _evento.save()
+        else:
+            print(f"existe el suceso")
+        pass
+    if 'id_borrar' in request.GET:
+        bitacora.objects.filter(id=int(request.GET['id_borrar'])).delete()
+        pass
+    if 'buscando' in request.GET:
+        consulta_bitacora = bitacora.objects.filter(sucesos__icontains = request.GET.get('suceso_a_buscar'))
+        pass
+
+    contexto = {"tabla_sql":consulta_bitacora}
+    return render(request, "agenda/bitacora.html",contexto)
 
 
 

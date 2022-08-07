@@ -10,7 +10,7 @@
 
 
 <nav class="navbar navbar-light bg-light">
-    <form action="/calendario">
+    <form action="{% url 'calendario' %}">
         <h3> Agregar un evento </h3>
         <table style="width:75%">
             <tr>
@@ -35,7 +35,7 @@
 
 
 <nav class="navbar navbar-light bg-light">
-    <form action="/calendario">
+    <form action="{% url 'calendario' %}">
         <h4> Buscar </h4>
         <label for="evento_a_buscar">Evento:</label>
         <input type="text" id="evento_a_buscar" name="evento_a_buscar" required>
@@ -54,7 +54,7 @@
   </tr>
   {% for item in tabla_sql %}
       <tr>
-          <form action="/calendario">
+          <form action="{% url 'calendario' %}">
               <td>{{item.nombre_evento}}</td><td>{{item.f_evento}}</td><td>{{item.f_aviso_evento}}</td>
               <td>
                   <input type="hidden" name = "id_borrar" value={{item.id}} >

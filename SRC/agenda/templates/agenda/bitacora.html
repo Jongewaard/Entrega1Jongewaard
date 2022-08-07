@@ -1,8 +1,71 @@
+<!--
+    fecha = models.DateField(default=datetime.datetime.now())
+    titulo = models.CharField(max_length=20, default="titulo")
+    momento = models.TimeField(default=datetime.datetime.now())
+    sucesos = models.CharField(max_length=300, default="default")
+-->
 {% extends 'agenda/base.html'%}
 
-
 {% block contenido_bitacora%}
-hola, soy la bitacora
+
+
+
+<nav class="navbar navbar-light bg-light">
+    <form action="{% url 'bitacora' %}">
+        <h3> Agregar un suceso </h3>
+        <table style="width:75%">
+            <tr>
+            <th>Titulo</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Sucesos</th>
+            </tr>
+            <td><input type="text" id="head_titulo" name="head_titulo" required></td>
+            <td><input type="date" id="fecha" name="fecha"  required></td>
+            <td><input type="time" id="hora" name="hora"  required></td>
+            <td><input type="text" id="head_sucesos" name="head_sucesos"  required></td>
+            <td>
+                <input type="hidden" name = "guardando" value=True >
+                <input type="submit" value="Guardar">
+            </td>
+        </table>
+        <br>
+
+    </form>
+</nav>
+<br>
+<br>
+
+
+<nav class="navbar navbar-light bg-light">
+    <form action="{% url 'bitacora' %}">
+        <h4> Buscar </h4>
+        <label for="suceso_a_buscar">Sucesos:</label>
+        <input type="text" id="suceso_a_buscar" name="suceso_a_buscar" required>
+        <input type="hidden" name = "buscando" value=True >
+        <input type="submit" value="Buscar">
+    </form>
+</nav>
+<br>
+
+  <table style="width:75%" class="center">
+  <tr>
+    <th>Titulo</th>
+    <th>Fecha</th>
+    <th>Hora</th>
+    <th>Sucesos</th>
+    <th>Acción</th>
+  </tr>
+  {% for item in tabla_sql %}
+      <tr>
+          <form action="{% url 'bitacora' %}">
+              <td>{{item.titulo}}</td><td>{{item.fecha}}</td><td>{{item.momento}}</td><td>{{item.sucesos}}</td>
+              <td>
+                  <input type="hidden" name = "id_borrar" value={{item.id}} >
+                  <input type="submit" value="Borrar">
+              </td>
+          </form>
+      </tr>
+  {% endfor %}
+  </table>
 {% endblock%}
-
-
